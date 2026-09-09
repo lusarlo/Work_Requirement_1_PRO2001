@@ -2,7 +2,7 @@
 
 ## How to run the app
 - Clone the repository using URL or download ZIP file:
-https://github.com/lusarlo/Work_Requirements_PRO1002.git
+https://github.com/lusarlo/Work_Requirement_1_PRO2001
 
 - Install dependecies on terminal: ```npm install```
 
