@@ -1,15 +1,12 @@
 # Work Requirement 1 PRO2001
 
 ## How to run the app
-- Clone the repository using URL:
+- Clone the repository using URL or download ZIP file:
 https://github.com/lusarlo/Work_Requirements_PRO1002.git
-Or download ZIP file.
 
-- Install dependecies on terminal:
- npm install
+- Install dependecies on terminal: ```npm install```
 
-- Start development server:
-npm run dev
+- Start development server: ```npm run dev```
 
 ## Tools Used
 - Visual Studio Code
