@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useEffect, useState } from 'react';
+
+type FunFact = {
+  text: string;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentFact, setCurrentFact] = useState('Loading a fun fact...');
+
+  useEffect(() => {
+    let isMounted = true;
+    let funFacts: FunFact[] = [];
+
+    const interval = setInterval(() => {
+      if (!isMounted || funFacts.length === 0) return;
+
+      const randomIndex = Math.floor(Math.random() * funFacts.length);
+      setCurrentFact(funFacts[randomIndex].text);
+    }, 2000);
+
+    fetch('/funfacts.json')
+      .then((response) => response.json())
+      .then((data) => {
+        if (!isMounted || data.funFacts.length === 0) return;
+
+        funFacts = data.funFacts;
+        const randomIndex = Math.floor(Math.random() * funFacts.length);
+        setCurrentFact(funFacts[randomIndex].text);
+      });
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Lucia Sarmiento Lodeiro</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <p className="fun-fact-title">Fun facts about me:</p>
+        <p className="fun-fact" aria-live="polite">{currentFact}</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
